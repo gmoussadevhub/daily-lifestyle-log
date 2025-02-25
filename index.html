@@ -62,6 +62,33 @@
     </div>
 
     <div class="section">
+        <h3>Nutrition</h3>
+        <label for="mealType">Meal Type:</label>
+        <select id="mealType">
+            <option value="planned">Planned</option>
+            <option value="actual">Actual</option>
+        </select>
+
+        <label for="breakfast">Breakfast:</label>
+        <input type="text" id="breakfast">
+
+        <label for="lunch">Lunch:</label>
+        <input type="text" id="lunch">
+
+        <label for="dinner">Dinner:</label>
+        <input type="text" id="dinner">
+
+        <label for="snack">Snack:</label>
+        <input type="text" id="snack">
+    </div>
+
+    <div class="section">
+        <h3>Water Intake</h3>
+        <label for="water">How much water did you drink? (oz)</label>
+        <input type="number" id="water" min="0">
+    </div>
+
+    <div class="section">
         <h3>Servings Tracker</h3>
         <label>Vegetables:</label>
         <div class="number-input">
@@ -92,6 +119,24 @@
         </div>
     </div>
 
+    <div class="section">
+        <h3>Activity/Movement</h3>
+        <label for="activity">Type:</label>
+        <input type="text" id="activity">
+
+        <label for="duration">Amount/Time:</label>
+        <input type="text" id="duration">
+
+        <label for="intensity">Intensity (Low/Medium/High):</label>
+        <input type="text" id="intensity">
+    </div>
+
+    <div class="section">
+        <h3>Sleep</h3>
+        <label for="sleep">How many hours did you sleep?</label>
+        <input type="number" id="sleep" min="0">
+    </div>
+
     <button onclick="saveToGoogleSheets()">Save Log</button>
 
     <script>
@@ -105,10 +150,20 @@
         function saveToGoogleSheets() {
             const logData = {
                 date: document.getElementById("date").value,
+                mealType: document.getElementById("mealType").value,
+                breakfast: document.getElementById("breakfast").value,
+                lunch: document.getElementById("lunch").value,
+                dinner: document.getElementById("dinner").value,
+                snack: document.getElementById("snack").value,
+                water: document.getElementById("water").value,
                 vegetables: document.getElementById("vegetables").value,
                 fruit: document.getElementById("fruit").value,
                 grains: document.getElementById("grains").value,
-                protein: document.getElementById("protein").value
+                protein: document.getElementById("protein").value,
+                activity: document.getElementById("activity").value,
+                duration: document.getElementById("duration").value,
+                intensity: document.getElementById("intensity").value,
+                sleep: document.getElementById("sleep").value
             };
             
             fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
