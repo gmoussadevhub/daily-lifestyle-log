@@ -22,10 +22,25 @@
             border-radius: 5px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
-        label, input, select, textarea {
+        label, input, textarea {
             display: block;
             width: 100%;
             margin-top: 5px;
+        }
+        .number-input {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .number-input button {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
         button {
             display: block;
@@ -47,97 +62,53 @@
     </div>
 
     <div class="section">
-        <h3>Nutrition</h3>
-        <label for="mealType">Meal Type:</label>
-        <select id="mealType">
-            <option value="planned">Planned</option>
-            <option value="actual">Actual</option>
-        </select>
-
-        <label for="breakfast">Breakfast:</label>
-        <input type="text" id="breakfast">
-
-        <label for="lunch">Lunch:</label>
-        <input type="text" id="lunch">
-
-        <label for="dinner">Dinner:</label>
-        <input type="text" id="dinner">
-
-        <label for="snack">Snack:</label>
-        <input type="text" id="snack">
-    </div>
-
-    <div class="section">
-        <h3>Water Intake</h3>
-        <label for="water">How much water did you drink? (oz)</label>
-        <input type="number" id="water" min="0">
-    </div>
-
-    <div class="section">
         <h3>Servings Tracker</h3>
-        <label for="vegetables">Vegetables:</label>
-        <select id="vegetables">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+        <label>Vegetables:</label>
+        <div class="number-input">
+            <button onclick="changeValue('vegetables', -1)">-</button>
+            <input type="number" id="vegetables" value="0" min="0">
+            <button onclick="changeValue('vegetables', 1)">+</button>
+        </div>
 
-        <label for="fruit">Fruit:</label>
-        <select id="fruit">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+        <label>Fruit:</label>
+        <div class="number-input">
+            <button onclick="changeValue('fruit', -1)">-</button>
+            <input type="number" id="fruit" value="0" min="0">
+            <button onclick="changeValue('fruit', 1)">+</button>
+        </div>
 
-        <label for="grains">Whole Grains/Starchy Vegetables:</label>
-        <select id="grains">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+        <label>Whole Grains/Starchy Vegetables:</label>
+        <div class="number-input">
+            <button onclick="changeValue('grains', -1)">-</button>
+            <input type="number" id="grains" value="0" min="0">
+            <button onclick="changeValue('grains', 1)">+</button>
+        </div>
 
-        <label for="protein">Protein:</label>
-        <select id="protein">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
-
-        <label for="legumes">Legumes/Beans:</label>
-        <select id="legumes">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
-
-        <label for="nuts">Nuts:</label>
-        <select id="nuts">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
-
-        <label for="fats">Fats:</label>
-        <select id="fats">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
-
-        <label for="dairy">Low-Fat Milk/Dairy:</label>
-        <select id="dairy">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
-    </div>
-
-    <div class="section">
-        <h3>Activity/Movement</h3>
-        <label for="activity">Type:</label>
-        <input type="text" id="activity">
-
-        <label for="duration">Amount/Time:</label>
-        <input type="text" id="duration">
-
-        <label for="intensity">Intensity (Low/Medium/High):</label>
-        <input type="text" id="intensity">
-    </div>
-
-    <div class="section">
-        <h3>Sleep</h3>
-        <label for="sleep">How many hours did you sleep?</label>
-        <input type="number" id="sleep" min="0">
+        <label>Protein:</label>
+        <div class="number-input">
+            <button onclick="changeValue('protein', -1)">-</button>
+            <input type="number" id="protein" value="0" min="0">
+            <button onclick="changeValue('protein', 1)">+</button>
+        </div>
     </div>
 
     <button onclick="saveToGoogleSheets()">Save Log</button>
 
     <script>
+        function changeValue(id, delta) {
+            const input = document.getElementById(id);
+            let value = parseInt(input.value) + delta;
+            if (value < 0) value = 0;
+            input.value = value;
+        }
+
         function saveToGoogleSheets() {
             const logData = {
                 date: document.getElementById("date").value,
-                mealType: document.getElementById("mealType").value,
-                breakfast: document.getElementById("breakfast").value,
-                lunch: document.getElementById("lunch").value,
-                dinner: document.getElementById("dinner").value,
-                snack: document.getElementById("snack").value,
-                water: document.getElementById("water").value,
                 vegetables: document.getElementById("vegetables").value,
                 fruit: document.getElementById("fruit").value,
                 grains: document.getElementById("grains").value,
-                protein: document.getElementById("protein").value,
-                legumes: document.getElementById("legumes").value,
-                nuts: document.getElementById("nuts").value,
-                fats: document.getElementById("fats").value,
-                dairy: document.getElementById("dairy").value
+                protein: document.getElementById("protein").value
             };
             
             fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
