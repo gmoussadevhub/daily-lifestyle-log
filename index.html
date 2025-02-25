@@ -50,8 +50,8 @@
         <h3>Nutrition</h3>
         <label for="mealType">Meal Type:</label>
         <select id="mealType">
-            <option value="Planned">Planned</option>
-            <option value="Actual">Actual</option>
+            <option value="planned">Planned</option>
+            <option value="actual">Actual</option>
         </select>
 
         <label for="breakfast">Breakfast:</label>
@@ -74,6 +74,33 @@
     </div>
 
     <div class="section">
+        <h3>Servings Tracker</h3>
+        <label for="vegetables">Vegetables:</label>
+        <select id="vegetables">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="fruit">Fruit:</label>
+        <select id="fruit">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="grains">Whole Grains/Starchy Vegetables:</label>
+        <select id="grains">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="protein">Protein:</label>
+        <select id="protein">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="legumes">Legumes/Beans:</label>
+        <select id="legumes">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="nuts">Nuts:</label>
+        <select id="nuts">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="fats">Fats:</label>
+        <select id="fats">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+
+        <label for="dairy">Low-Fat Milk/Dairy:</label>
+        <select id="dairy">"+ "".join([f'<option value="{i}">{i}</option>' for i in range(0, 11)]) + "</select>
+    </div>
+
+    <div class="section">
         <h3>Activity/Movement</h3>
         <label for="activity">Type:</label>
         <input type="text" id="activity">
@@ -91,18 +118,6 @@
         <input type="number" id="sleep" min="0">
     </div>
 
-    <div class="section">
-        <h3>Mood and Emotions</h3>
-        <label for="mood">How did you feel today?</label>
-        <textarea id="mood"></textarea>
-    </div>
-
-    <div class="section">
-        <h3>Today's Reflection</h3>
-        <label for="reflection">Did you stay on track with your goals?</label>
-        <textarea id="reflection"></textarea>
-    </div>
-
     <button onclick="saveToGoogleSheets()">Save Log</button>
 
     <script>
@@ -115,15 +130,17 @@
                 dinner: document.getElementById("dinner").value,
                 snack: document.getElementById("snack").value,
                 water: document.getElementById("water").value,
-                activity: document.getElementById("activity").value,
-                duration: document.getElementById("duration").value,
-                intensity: document.getElementById("intensity").value,
-                sleep: document.getElementById("sleep").value,
-                mood: document.getElementById("mood").value,
-                reflection: document.getElementById("reflection").value
+                vegetables: document.getElementById("vegetables").value,
+                fruit: document.getElementById("fruit").value,
+                grains: document.getElementById("grains").value,
+                protein: document.getElementById("protein").value,
+                legumes: document.getElementById("legumes").value,
+                nuts: document.getElementById("nuts").value,
+                fats: document.getElementById("fats").value,
+                dairy: document.getElementById("dairy").value
             };
             
-            fetch("https://script.google.com/macros/s/AKfycbz81oIgYHqdBfgiCxGWf86cX0EGXPh7phC8p2vUxUnFSrX3HTjlOwjt0HVFH8ELxVPBdA/exec", {
+            fetch("YOUR_GOOGLE_APPS_SCRIPT_URL", {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
